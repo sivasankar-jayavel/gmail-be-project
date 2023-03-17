@@ -1,7 +1,7 @@
 import Email from '../models/Email.js';
 import Account from '../models/Account.js';
 import { validationResult } from 'express-validator';
-import txtgen from 'txtgen';
+// import txtgen from 'txtgen';
 
 export async function getAllEmails(request, response, next) {
   try {
@@ -19,7 +19,7 @@ export async function getAllEmails(request, response, next) {
   }
 }
 
-export async function sendEmail(request, response, next){
+export async function sendEmail(request, response, next) {
   try {
     // validate data types
     const validationErrors = validationResult(request);
@@ -109,11 +109,11 @@ export const updateDraft = async (request, response, next) => {
     const savedDraft = await foundDraft.save();
     console.log('Draft updated', savedDraft);
 
-    response.status(200).json({message: 'Draft updated', draft: savedDraft});
-  } catch(error){
+    response.status(200).json({ message: 'Draft updated', draft: savedDraft });
+  } catch (error) {
     console.log(error);
     response.status(500);
-}
+  }
 };
 
 export async function moveToTrash(request, response, next) {
@@ -131,7 +131,7 @@ export async function moveToTrash(request, response, next) {
         if (inbox[i].equals(request.params.id)) {
           trash.push(inbox[i]);
           inbox.splice(i, 1);
-          console.log('Moved from inbox to trash',request.params.id);
+          console.log('Moved from inbox to trash', request.params.id);
           isEmailFound = true;
           break;
         }
@@ -296,3 +296,4 @@ export async function deleteEmail(request, response, next) {
     response.status(500);
   }
 }
+
